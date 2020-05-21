@@ -5,23 +5,20 @@
 
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
-/* eslint-env node */
 
 module.exports = function (/* ctx */) {
-  return {
+    return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
     boot: [
-
-      'axios'
+      
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: [
-      'app.sass'
+      'app.css'
     ],
-
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
       // 'ionicons-v4',
@@ -33,13 +30,13 @@ module.exports = function (/* ctx */) {
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
       'roboto-font', // optional, you are not bound to it
-      'material-icons' // optional, you are not bound to it
+      'material-icons', // optional, you are not bound to it
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
       iconSet: 'material-icons', // Quasar icon set
-      lang: 'zh-hans', // Quasar language pack
+      lang: 'en-us', // Quasar language pack
 
       // Possible values for "all":
       // * 'auto' - Auto-import needed Quasar components & directives
@@ -81,16 +78,7 @@ module.exports = function (/* ctx */) {
 
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {
-      //   cfg.module.rules.push({
-      //     enforce: 'pre',
-      //     test: /\.(js|vue)$/,
-      //     loader: 'eslint-loader',
-      //     exclude: /node_modules/,
-      //     options: {
-      //       formatter: require('eslint').CLIEngine.getFormatter('stylish')
-      //     }
-      //   })
-      }
+      },
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
@@ -114,9 +102,9 @@ module.exports = function (/* ctx */) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'wefood',
-        short_name: 'wefood',
-        description: 'wefood',
+        name: 'Quasar App',
+        short_name: 'Quasar App',
+        description: 'A Quasar Framework app',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',

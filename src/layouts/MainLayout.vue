@@ -17,7 +17,9 @@
         <q-route-tab to="/schedule" label="我的计划" />
         <q-route-tab to="/cookbooks" label="食谱大全" />
         <q-route-tab to="/myself" label="我的" />
+      
       </q-tabs>
+      
     </q-header>
 
     <q-drawer v-model="left" side="left" bordered>
@@ -25,7 +27,9 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <transition name="fade-transform" mode="out-in" :duration="200">
+        <router-view class="q-mt-sm"/>
+      </transition>
     </q-page-container>
 
   </q-layout>
