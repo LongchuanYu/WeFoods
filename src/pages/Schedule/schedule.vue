@@ -12,7 +12,8 @@
     </q-card-section>
     <q-separator dark inset />
     <q-card-section class="q-pa-xs flex justify-end">
-      <q-btn flat color="grey-1" label="编辑" size="xs" class=""/>
+      <q-btn flat color="grey-1" label="换一道菜" size="md" class=""/>
+      <q-btn flat color="grey-1" label="编辑" size="md" class=""/>
     </q-card-section>
   </q-card>
   <!-- 星期二 -->
@@ -26,7 +27,7 @@
     </q-card-section>
     <q-separator dark inset />
     <q-card-section class="q-pa-xs flex justify-end">
-      <q-btn flat color="grey-1" label="编辑" size="xs" class=""/>
+      <q-btn flat color="grey-1" label="编辑" size="md" class=""/>
     </q-card-section>
   </q-card>
   <!-- 星期三 -->
