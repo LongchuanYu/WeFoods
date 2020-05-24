@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="q-mt-sm">
   <q-pull-to-refresh @refresh="refresher">
   <!-- 星期一 -->
   <q-card dark bordered class="bg-blue-grey-5 my-card ">

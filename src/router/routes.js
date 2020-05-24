@@ -18,10 +18,17 @@ const routes = [
         name:'Detail',
         component:()=>import('pages/Cookbooks/detail.vue')
       },{
+        path:'detail-edit/:id',
+        name:'DetailEdit',
+        component:()=>import('pages/Cookbooks/detail_edit.vue')
+      },{
         path:'/myself',
         component:()=>import('pages/Myself/myself.vue')
-      }
+      },
     ]
+  },{
+    path:'/test',
+    component:()=>import('components/ImgUpload.vue')
   }
 ]
 

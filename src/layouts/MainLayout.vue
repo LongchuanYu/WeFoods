@@ -18,7 +18,7 @@
       <q-page-container>
         <transition name="fade-transform" mode="out-in" :duration="200">
           <!-- <div class="row justify-center"> -->
-            <router-view class="q-mt-sm" id="l-viewer"/>
+            <router-view id="l-viewer"/>
           <!-- </div> -->
         </transition>
       </q-page-container>
