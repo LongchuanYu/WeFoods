@@ -61,6 +61,22 @@ export default {
           return false
       }
 
+      let data = new FormData();
+      let header = {
+        headers:{
+          'Content-Type':'multipart/form-data'
+        }
+      }
+      const path = `http://localhost:5000/api/avatar`
+      data.append('pic',this.file);
+      this.$axios.post(path,data,header).then(res=>{
+        console.log(res)
+      }).catch(e=>{
+        console.log(e)
+      })
+
+
+
       // 触发这个组件对象的input事件
       this.$emit('input', this.dataUrl);
 

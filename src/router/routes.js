@@ -28,7 +28,7 @@ const routes = [
     ]
   },{
     path:'/test',
-    component:()=>import('components/ImgUpload.vue')
+    component:()=>import('components/test.vue')
   }
 ]
 
