@@ -24,8 +24,6 @@
         <span class="flex flex-center absolute-center text-grey text-h6">点击添加封面</span>
       </label>
     </div>
-
-
   </div>
 </template>
 <script>

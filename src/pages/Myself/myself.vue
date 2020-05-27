@@ -1,46 +1,35 @@
 <template>
-  <div class="q-mt-md">
-    <div>
-      <div>Avatar</div>
-      <div>Name / info</div>
-      <q-btn label="Login" @click="test"/>
-      <q-btn label="Register" @click="showRegisterModal=true"/>
-      <q-dialog v-model="showRegisterModal">
-        <q-card style="width:400px;">
-          <Register />
-        </q-card>
-      </q-dialog>
+  <div class="q-mt-lg">
+
+
+    <!-- 父组件 -->
+    <div style="width:200px;height:100px;border:1px solid" class="bg-primary">
+      <span>parent</span>
+      <input type="text" class="q-ma-md" v-model="button_val"/>
     </div>
-    <div>我的关注</div>
-    <div>我收藏的作品</div>
-    <div>我发布的作品</div>
-    <div></div>
+
+
+    <!-- 子组件 -->
+    <div style="width:200px;height:100px;border:1px solid" class="bg-info">
+      <span>child</span>
+      <test v-model="button_val" class="q-ma-md"/>
+    </div>
+    
 
   </div>
 </template>
-
 <script>
-import Register from 'components/Register.vue'
+import test from 'components/test.vue'
 export default {
-  components:{Register},
   data(){
     return {
-    
+      button_val:1
     }
   },
+  components:{test},
   methods:{
-    test(){
-      console.log(this.$store.state.myself.show_register_modal)
-    }
-  },
-  computed:{
-    showRegisterModal:{
-      get(){
-        return this.$store.state.myself.show_register_modal
-      },
-      set(value){
-        this.$store.commit('myself/HANDLE_REGISTER_MODAL', value)
-      }
+    handleInputChange(event){
+      this.button_val=Number(event.target.value)
     }
   }
 }

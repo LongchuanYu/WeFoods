@@ -63,12 +63,18 @@ export default {
       password:null,
       email: null,
       errorMsg:[],
-      successMsg:null
+      successMsg:null,
+      commited:false      
     }
   },
 
   methods: {
     onSubmit () {
+
+      // initial
+      this.errorMsg = []
+      if(this.commited){return;}
+
       const path = `users`
       let self = this
       let payload = {
@@ -76,14 +82,17 @@ export default {
         password:this.password,
         email:this.email
       }
-      this.errorMsg = []
+      this.commited=true
       this.$axios.post(path,payload).then(res=>{
+        
         this.successMsg="恭喜，注册成功！"
         setTimeout(() => {
           self.$store.commit('myself/HANDLE_REGISTER_MODAL',false)
+          this.commited=false
         }, 1000);
         
       }).catch(e=>{
+        this.commited=false
         if(e.response && e.response.data){
           let response = e.response.data.message;
           for(let res in response){

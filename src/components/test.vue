@@ -1,23 +1,30 @@
 <template>
   <div>
-    <q-btn color="primary" label="clickme" @click="handleTest"/>
+    <q-btn color="primary" :label="buttonVal+'  (+1)'" @click="handleTest"/>
   </div>
 </template>
 
 <script>
 export default {
+  model:{
+    prop:'buttonVal',
+    event:'haha'
+  },
+  props:{
+    buttonVal:{
+      type:Number,
+      default:0
+    }
+    
+  },
   data(){
     return {}
   },
   methods:{
     handleTest(){
-      const path=`http://localhost:5000/api/avatar`
-      this.$axios.get(path).then(res=>{
-        console.log(res)
-      }).catch(e=>{
-        console.log(e)
-      })
+      this.$emit('haha',this.buttonVal+1)
     }
+
   }
 }
 </script>
