@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // import example from './module-example'
+ // import的名字作为在别处引用的模块名，相当于别名。所以可以随便取，只要保持一致就行。
+import myself from './module_myself'
 
 Vue.use(Vuex)
 
@@ -18,6 +20,7 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       // example
+      myself
     },
 
     // enable strict mode (adds overhead!)
