@@ -55,10 +55,47 @@ export default {
 
   methods: {
     onSubmit () {
-      
+      // initial
+      this.errorMsg = []
+      if(this.commited){return;}
+
+      const path = `/tokens`
+      let payload = {
+        username:this.username,
+        password:this.password
+      }
+      this.commited = true;
+      this.$axios.post(path,{},{auth:payload}).then(res=>{
+        // this.temp = res.data.token
+        this.$toasted.success('登录成功！')
+        // this.onCancel()
+      }).catch(e=>{
+        console.log(e)
+        this.$toasted.error('(⊙o⊙)…失败了...)')
+        this.onCancel()
+
+      })
+
+
     },
-    onCancel () {
-      this.$emit('input',false) 
+    onCancel (close_modal=true) {
+      // if(this.temp){
+      //   let encodedUrl = this.temp.split('.')[1]
+      //   let decodedUrl = window.atob(encodedUrl)
+      //   console.log(decodedUrl)
+      // }
+
+
+      // return;
+      this.username=null
+      this.password=null
+      this.errorMsg=[]
+      this.successMsg = null
+      this.commited=false
+      if(close_modal){
+        this.$emit('input',false) 
+      }
+      
     }
   }
 }

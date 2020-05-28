@@ -14,7 +14,9 @@
     <div>我的关注</div>
     <div>我收藏的作品</div>
     <div>我发布的作品</div>
-    <div></div>
+    <q-btn label="set1" @click="handleSet_1"/>
+    <q-btn label="set2" @click="handleSet_2"/>
+    <q-btn label="get" @click="handleGet"/>
 
   </div>
 </template>
@@ -22,8 +24,12 @@
 <script>
 import Login from 'components/Login.vue'
 import Register from 'components/Register.vue'
+import { mapGetters } from 'vuex'
 export default {
   components:{Register,Login},
+  computed:{
+    ...mapGetters({'userid':'base/userid'})
+  },
   data(){
     return {
       showLoginModal:false,
@@ -31,6 +37,20 @@ export default {
     }
   },
   methods:{
+    handleSet_1(){
+      window.localStorage.setItem('wefoods-token','1')
+      console.log(window.localStorage.getItem('wefoods-token'))
+    },
+    handleSet_2(){
+      window.localStorage.setItem('wefoods-token','2')
+      console.log(window.localStorage.getItem('wefoods-token'))
+    },
+    handleGet(){
+      console.log(
+        this.$store.getters['base/userid'],
+        this.$store.state.base.user.name
+      )
+    }
   }
 }
 </script>

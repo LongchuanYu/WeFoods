@@ -38,9 +38,7 @@
           ]"
         />
 
-      <q-banner class="bg-positive text-white" v-if="successMsg">
-        {{successMsg}}
-      </q-banner>
+
       <q-banner class="bg-negative text-white" v-if="errorMsg.length" v-for="(item,index) in errorMsg" :key="index">
         {{item}}
       </q-banner>
@@ -68,7 +66,6 @@ export default {
       password:null,
       email: null,
       errorMsg:[],
-      successMsg:null,
       commited:false      
     }
   },
@@ -89,13 +86,8 @@ export default {
       }
       this.commited=true
       this.$axios.post(path,payload).then(res=>{
-        
-        this.successMsg="恭喜，注册成功！"
-        setTimeout(() => {
-          this.onCancel() //关闭modal
-          this.commited=false
-        }, 1000);
-        
+        this.$toasted.success('恭喜！注册成功！')
+        this.onCancel()
       }).catch(e=>{
         this.commited=false
         if(e.response && e.response.data){
@@ -115,7 +107,6 @@ export default {
       this.email = null
       this.password=null
       this.errorMsg = []
-      this.successMsg = null
       this.commited = false
       this.$emit('input',false)  //关闭modal
     }
