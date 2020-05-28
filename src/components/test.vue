@@ -22,7 +22,7 @@ export default {
   },
   methods:{
     handleTest(){
-      this.$emit('haha',this.buttonVal+1)
+      this.$emit('haha',Number(this.buttonVal)+1)
     }
 
   }

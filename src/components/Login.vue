@@ -1,6 +1,6 @@
 <template>
 <div>
-  <q-dialog :value="show" @input="show=false">
+  <q-dialog :value="value" @input="$emit('input',$event)">
     <q-card style="width:400px;" class="q-pa-md">
     <q-form
       @submit="onSubmit"
@@ -28,12 +28,11 @@
 
       <div>
         <q-btn label="确定" type="submit" color="primary"/>
-        <q-btn label="取消" color="primary" flat class="q-ml-sm"/>
+        <q-btn label="取消" color="primary" flat class="q-ml-sm" @click="onCancel"/>
       </div>
     </q-form>
     </q-card>
   </q-dialog>
-  <q-btn label="click" @click="show=true"/>
 </div>  
 </template>
 
@@ -41,6 +40,9 @@
 
 <script>
 export default {
+  props:{
+    value:Boolean
+  },
   data () {
     return {
       username: null,
@@ -48,22 +50,16 @@ export default {
       errorMsg:[],
       successMsg:null,
       commited:false,
-      show:false
     }
   },
 
   methods: {
     onSubmit () {
-
+      
     },
-
     onCancel () {
-
-    },
-    test(){
-      this.show = false
-    },
-    test2(){}
+      this.$emit('input',false) 
+    }
   }
 }
 </script>
