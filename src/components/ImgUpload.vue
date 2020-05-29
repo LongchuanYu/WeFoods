@@ -14,7 +14,7 @@
         icon="delete_outline" 
         class="absolute" 
         style="top:20px;right:20px;"
-        @click="dataUrl=''"
+        @click="handleDelete"
       />
       <img :src="dataUrl" alt="" style="width:100%;object-fit:scale-down">
     </div>
@@ -39,53 +39,51 @@ export default {
   methods:{
     imgPreview(file){
       let self = this;
-    if(!file || !URL.createObjectURL){
-      return;
-    }
-    if(/^image/.test(file.type)){
-      this.dataUrl = URL.createObjectURL(file)
-      console.log(this.dataUrl)
-    }
+      if(!file || !URL.createObjectURL){
+        return;
+      }
+      if(/^image/.test(file.type)){
+        this.dataUrl = URL.createObjectURL(file)
+        console.log(this.dataUrl)
+      }
+    },
+    handleDelete(){
+      this.dataUrl='',
+      this.$emit('input', null);
     },
     handleImgChange(e){
       let inputDOM = this.$refs.inputer;
       // 通过DOM取文件数据
-      this.file    = inputDOM.files[0];
+      this.imgfile    = inputDOM.files[0];
       this.errText = '';
 
-      let size = Math.floor(this.file.size / 1024);
+      let size = Math.floor(this.imgfile.size / 1024);
       if (size > 5000) {
           // 这里可以加个文件大小控制
           return false
       }
-
-      let data = new FormData();
-      let header = {
-        headers:{
-          'Content-Type':'multipart/form-data'
-        }
-      }
-      const path = `http://localhost:5000/api/avatar`
-      data.append('pic',this.file);
-      this.$axios.post(path,data,header).then(res=>{
-        console.log(res)
-      }).catch(e=>{
-        console.log(e)
-      })
+      this.imgPreview(this.imgfile)
+      // 把 this.file 抛出去
 
 
+
+      // let data = new FormData();
+      // let header = {
+      //   headers:{
+      //     'Content-Type':'multipart/form-data'
+      //   }
+      // }
+      // const path = `http://localhost:5000/api/avatar`
+      // data.append('pic',this.file);
+      // this.$axios.post(path,data,header).then(res=>{
+      //   console.log(res)
+      // }).catch(e=>{
+      //   console.log(e)
+      // })
 
       // 触发这个组件对象的input事件
-      this.$emit('input', this.dataUrl);
+      this.$emit('input', this.imgfile);
 
-      
-      // 这里就可以获取到文件的名字了
-      this.fileName = this.file.name;
-      
-      this.imgPreview(this.file)
-
-      // 这里加个回调也是可以的
-      this.onChange && this.onChange(this.file, inputDOM.value);
     }
   }
 }

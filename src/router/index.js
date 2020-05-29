@@ -26,5 +26,20 @@ export default function (/* { store, ssrContext } */) {
     base: process.env.VUE_ROUTER_BASE
   })
 
+  Router.beforeEach((to, from, next) => {
+    const token = window.localStorage.getItem('wefoods-token')
+    if (to.matched.some(record => record.meta.requiresAuth) && (!token || token === null)) {
+      Vue.toasted.error('请登录先...')
+      next('/myself')
+    }else{
+      next()
+    }
+    
+  })
+  
+  
+  
+  
+
   return Router
 }

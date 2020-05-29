@@ -39,6 +39,7 @@
 
 
 <script>
+// import {login_action,logout_action} from 'components/utils/login.js'
 export default {
   props:{
     value:Boolean
@@ -67,12 +68,13 @@ export default {
       this.commited = true;
       this.$axios.post(path,{},{auth:payload}).then(res=>{
         // this.temp = res.data.token
+        this.$store.dispatch('base/login_action',res.data.token)
+        this.onCancel()
         this.$toasted.success('登录成功！')
-        // this.onCancel()
       }).catch(e=>{
         console.log(e)
-        this.$toasted.error('(⊙o⊙)…失败了...)')
-        this.onCancel()
+        this.$toasted.error('登录失败...')
+        this.onCancel(false)
 
       })
 
@@ -81,11 +83,10 @@ export default {
     onCancel (close_modal=true) {
       // if(this.temp){
       //   let encodedUrl = this.temp.split('.')[1]
+      //   console.log(encodedUrl)
       //   let decodedUrl = window.atob(encodedUrl)
       //   console.log(decodedUrl)
       // }
-
-
       // return;
       this.username=null
       this.password=null

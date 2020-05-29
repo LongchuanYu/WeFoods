@@ -1,15 +1,13 @@
-
 const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
+    redirect:'/schedule',
     children: [
       {
-        path:'',
-        component:()=>import('pages/Schedule/schedule.vue')
-      },{
         path: '/schedule',
-        component: () => import('pages/Schedule/schedule.vue')
+        component: () => import('pages/Schedule/schedule.vue'),
+
       },{
         path:'/cookbooks',
         component: () => import('pages/Cookbooks/cookbooks.vue'),
@@ -20,7 +18,10 @@ const routes = [
       },{
         path:'detail-edit/:id',
         name:'DetailEdit',
-        component:()=>import('pages/Cookbooks/detail_edit.vue')
+        component:()=>import('pages/Cookbooks/detail_edit.vue'),
+        meta:{
+          requiresAuth:true
+        }
       },{
         path:'/myself',
         component:()=>import('pages/Myself/myself.vue')
@@ -31,6 +32,13 @@ const routes = [
     component:()=>import('components/test.vue')
   }
 ]
+
+
+
+
+
+
+
 
 // Always leave this as last one
 if (process.env.MODE !== 'ssr') {

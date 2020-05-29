@@ -5,7 +5,7 @@
 
 
     <!-- Nav img -->
-    <ImgUpload v-model="imgUrl"/>
+    <ImgUpload v-model="imgfile"/>
 
     <!-- Content -->
     <div class="q-pa-md">
@@ -52,7 +52,7 @@
 
       <!-- 发布 -->
       <div>
-        <q-btn color="primary" label="发布" style="width:100%"/>
+        <q-btn color="primary" label="发布" style="width:100%" @click="handlePublish"/>
       </div>
 
 
@@ -69,7 +69,7 @@ export default {
   components:{ImgUpload,CustomGrid},
   data(){
     return {
-      imgUrl:'',
+      imgfile:null,
       fieldForm:{
         title:'',
         description:'',
@@ -81,12 +81,23 @@ export default {
     }
   },
   methods:{
-    // test(){
-    //   console.log(this.fieldForm.foodItems)
-    // },
-    // test_2(){
-    //   this.fieldForm.foodItems = [{name:'hhhhhh',value:'hohohoho'}]
-    // }
+    handlePublish(){
+      let data = new FormData();
+      let header = {
+        headers:{
+          'Content-Type':'multipart/form-data'
+        }
+      }
+      const path = `/cookbooks`
+      data.append('imgfile',this.imgfile);
+      data.append('name',this.fieldForm.title)
+      this.$axios.post(path,data,header).then(res=>{
+        console.log(res)
+      }).catch(e=>{
+        console.log(e)
+      })
+
+    }
   }
 }
 </script>

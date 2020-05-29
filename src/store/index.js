@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import VuexPersistence from 'vuex-persist'
 // import example from './module-example'
  // import的名字作为在别处引用的模块名，相当于别名。所以可以随便取，只要保持一致就行。
 import base from './module_base'
@@ -21,6 +21,7 @@ export default function (/* { ssrContext } */) {
       // example
       base
     },
+    plugins:[new VuexPersistence().plugin],
 
     // enable strict mode (adds overhead!)
     // for dev mode only
