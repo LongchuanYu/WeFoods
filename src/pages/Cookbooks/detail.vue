@@ -5,13 +5,13 @@
 
 
     <!-- Nav img -->
-    <q-img src="statics/fake_resources/food_1.png" 
+    <q-img :src="resources.imageUrl" 
       style="object-fit: scale-down;" 
       class="q-mb-md"
     />
     <!-- Content -->
     <div class="q-pa-md">
-      <div class="text-h5 text-weight-bold flex justify-center q-mb-sm">肯德基全家桶</div>
+      <div class="text-h5 text-weight-bold flex justify-center q-mb-sm">{{resources.name}}</div>
       
       <div class="text-subtitle2 flex justify-center q-mb-md">
         <span class="">7.5分</span>
@@ -22,17 +22,17 @@
       <!-- Author -->
       <div class="flex justify-start  q-mb-lg">
         <q-avatar class="q-mr-md">
-          <img src="statics/fake_resources/avatar.png" alt="">
+          <img :src="resources.author.avatar" alt="">
         </q-avatar>
         <div class="flex column">
-          <span class="text-h6">Name</span>
+          <span class="text-h6">{{resources.author.username}}</span>
           <span class="text-weight-light" style="font-size:0.5em;">2020.10.1</span>
         </div>
         <q-space />
         <q-btn outline color="primary" label="关注" class=""/>
       </div>
       
-      <div class="q-mb-sm">Description</div>
+      <div class="q-mb-sm">{{resources.description}}</div>
       <!-- 食材 -->
       <div class="q-mb-sm">
         <div class="text-h6 text-weight-bold">食材</div>
@@ -49,7 +49,7 @@
 
       <!-- 步骤 -->
       <div class="text-h6 text-weight-bold">步骤</div>
-      <span>先煮饭，再炒土豆，最后盛饭，开吃先煮饭，再炒土豆，最后盛饭，开吃先煮饭，再炒土豆，最后盛饭，开吃</span>
+      <span>{{resources.step}}</span>
     </div>
 
     <!-- sticky function -->
@@ -115,13 +115,43 @@ export default {
       },
       dailog:{
         show:false 
+      },
+      resources:{
+        name:'',
+        description:'',
+        imageUrl:'',
+        myfoods:'',
+        step:'',
+        author:''
       }
+
+
     }
   },
   methods:{
     open_dialog(){
       this.dailog.show = true
+    },
+    _getCookbook(id){
+      const path = `/cookbooks/${id}`
+      this.$axios.get(path).then(res=>{
+        console.log(res)
+        let data = res.data;
+        this.resources.name = data.name
+        this.resources.description = data.description
+        this.resources.imageUrl = data.imageUrl
+        this.resources.myfoods = data.myfoods
+        this.resources.step = data.step
+        this.resources.author = data.author
+      }).catch(e=>{
+        console.log(e)
+      })
+
     }
+  },
+  created(){
+    let ckid = this.$route.params.id
+    this._getCookbook(ckid)
   }
 }
 </script>

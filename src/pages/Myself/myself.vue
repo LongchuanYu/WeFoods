@@ -1,11 +1,11 @@
 <template>
   <div class="q-mt-md">
     <!-- 已登录界面 -->
-    <div v-if="shareState.base.is_authed">
+    <div v-if="shareState.is_authed">
       <q-avatar>
-        <img :src="shareState.base.useravatar" alt="">
+        <img :src="shareState.useravatar" alt="">
       </q-avatar>
-      <div>{{shareState.base.username}}</div>
+      <div>{{shareState.username}}</div>
       <q-btn label="logout" @click="handleLogout"/>
     </div>
 
@@ -23,6 +23,8 @@
     <div>我发布的作品</div>
     <q-btn label="tst" @click="test"/>
 
+    <!-- <img src='http://localhost:5000/upload/f3c121ae-f06f-3b1d-b1da-f1f4b8678f34' alt=""> -->
+
 
 
 
@@ -35,14 +37,17 @@
 import Login from 'components/Login.vue'
 import Register from 'components/Register.vue'
 import {logout_action} from 'components/utils/login.js'
+import { mapState } from 'vuex'
+
+
 export default {
   components:{Register,Login},
 
   data(){
     return {
-      shareState:this.$store.state,
+      shareState:this.$store.state.base,
       showLoginModal:false,
-      showRegisterModal:false
+      showRegisterModal:false,
     }
   },
   methods:{
@@ -51,11 +56,16 @@ export default {
       this.$toasted.info('您已登出...')
     },
     test(){
-      console.log(this.shareState.base.username)
-    }
+      console.log(this.username,this.$store.state.base.username)
+    },
+    // _pingFlask(){
+    //   const path = "/ping"
+    //   this.$axios.get(path).then(res=>{}).catch(e=>{
+    //     this.handleLogout()
+    //   })
+    // }
   },
-  created(){
-    
-  }
+  created(){}
+
 }
 </script>

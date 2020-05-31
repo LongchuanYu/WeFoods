@@ -91,10 +91,13 @@ export default {
       const path = `/cookbooks`
       data.append('imgfile',this.imgfile);
       data.append('name',this.fieldForm.title)
+      data.append('description',this.fieldForm.description)
+      data.append('myfoods',JSON.stringify(this.fieldForm.foodItems))
+      data.append('step',this.fieldForm.step)
       this.$axios.post(path,data,header).then(res=>{
         console.log(res)
       }).catch(e=>{
-        console.log(e)
+        console.log(e.response)
       })
 
     }

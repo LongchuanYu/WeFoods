@@ -7,5 +7,6 @@ export function login_action(ctx,token){
 }
 
 export function logout_action(ctx){
+  console.log('logout...')
   ctx.commit('LOGOUT_ACTION')
 }
