@@ -1,9 +1,9 @@
 <template>
   <div class="q-mt-sm"> 
-    <q-pull-to-refresh @refresh="refresher">
+    
+    <q-infinite-scroll @load="onLoad" :offset="250">
+      <q-pull-to-refresh @refresh="refresher">
       <q-list>
-
-
         <q-item clickable v-ripple v-for="(item,index) in items" :key="index" @click="handleClick(item.id)">
           <q-item-section thumbnail class="q-pl-sm">
             <img :src="item.imageUrl" alt="" style="width:150px;height:150px;object-fit: cover;">
@@ -30,7 +30,14 @@
 
 
       </q-list>
-    </q-pull-to-refresh>
+      </q-pull-to-refresh>
+      <template v-slot:loading>
+        <div class="row justify-center q-my-md">
+          <q-spinner-dots color="primary" size="40px" />
+        </div>
+      </template>
+    </q-infinite-scroll>
+    
   </div>
 </template>
 
@@ -38,7 +45,12 @@
 export default {
   data(){
     return {
-      items:''
+      items:'',
+      _meta:'',
+      shareData:{
+        page:1,
+        per_page:10
+      }
     }
   },
   methods:{
@@ -52,15 +64,40 @@ export default {
         params:{id:index}
       })
     },
-    _getCookbooks(){
-      let page = this.$route.query.page || 1
-      let per_page = this.$route.query.per_page || 20
+    _getCookbooks(refresh=null){
+      let page = this.shareData.page
+      let per_page = this.shareData.per_page
       const path = `/cookbooks/?page=${page}&per_page=${per_page}`
       this.$axios.get(path).then(res=>{
+        console.log(res)
         this.items = res.data.items
+        this._meta = res.data._meta
+        if(refresh) refresh()
       }).catch(e=>{
         console.log(e)
       })
+    },
+    refresher(done){
+      this._getCookbooks(done)
+    },
+    onLoad(index,done){
+      // this._getCookbooks(null,done)
+      if(!this.items || !this._meta || (this._meta && this._meta.page>this._meta.pages) ){
+        done()
+        return;
+      }
+      let page = this._meta.page+1
+      let per_page = this.shareData.per_page
+      const path = `/cookbooks/?page=${page}&per_page=${per_page}`
+      this.$axios.get(path).then(res=>{
+        this._meta = res.data._meta
+        this.items = this.items.concat(res.data.items)
+        done()
+      }).catch(e=>{
+        console.log(e)
+      })
+      
+
     }
   },
   created(){

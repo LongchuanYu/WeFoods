@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Toasted from 'vue-toasted';
-
+import moment from 'moment'
 
 
 Vue.use(Toasted, {
@@ -21,3 +21,4 @@ Vue.use(Toasted, {
     }
   },
 });
+Vue.prototype.$moment = moment

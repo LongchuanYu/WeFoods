@@ -1,8 +1,4 @@
-tt = {
-  name:'liyang',
-  age:'123'
-}
-ret = [1,2,3]
-
-ret.push(4)
-console.log(ret)
+let a = [1,2,3]
+let b = [4,5,6]
+a.push(b)
+console.log(a)

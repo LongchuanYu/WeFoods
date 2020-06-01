@@ -100,7 +100,14 @@ export default {
         console.log(e.response)
       })
 
+    },
+    _ping(){
+      const path='/ping'
+      this.$axios.get(path).then(res=>{}).catch(e=>{})
     }
+  },
+  created(){
+    this._ping()
   }
 }
 </script>

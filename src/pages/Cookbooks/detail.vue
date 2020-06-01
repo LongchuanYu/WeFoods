@@ -26,7 +26,7 @@
         </q-avatar>
         <div class="flex column">
           <span class="text-h6">{{resources.author.username}}</span>
-          <span class="text-weight-light" style="font-size:0.5em;">2020.10.1</span>
+          <span class="text-weight-light" style="font-size:0.5em;">{{$moment(resources.timestamp).format('YYYY-MM-DD')}}</span>
         </div>
         <q-space />
         <q-btn outline color="primary" label="关注" class=""/>
@@ -57,8 +57,8 @@
       <q-btn dense icon="add"  round color="secondary"  @click="open_dialog()" />
     </q-page-sticky>
     <q-page-sticky position="bottom-right" :offset="[25,50]">
-      <q-btn dense icon="thumb_up_alt"  round color="secondary" />
-      <q-badge color="orange" class="g-custom-badge">9999</q-badge>
+      <q-btn dense icon="thumb_up_alt"  round color="secondary" @click="test"/>
+      <q-badge color="orange" class="g-custom-badge" >9999</q-badge>
     </q-page-sticky>
 
     <!-- dailog layer -->
@@ -122,7 +122,8 @@ export default {
         imageUrl:'',
         myfoods:'',
         step:'',
-        author:''
+        author:'',
+        timestamp:''
       }
 
 
@@ -143,10 +144,15 @@ export default {
         this.resources.myfoods = data.myfoods
         this.resources.step = data.step
         this.resources.author = data.author
+        this.resources.timestamp = data.timestamp
       }).catch(e=>{
         console.log(e)
       })
 
+    },
+    test(){
+      let t = JSON.parse(this.resources.myfoods)
+      console.log(t)
     }
   },
   created(){
