@@ -1,4 +1,5 @@
-let a = [1,2,3]
-let b = [4,5,6]
-a.push(b)
-console.log(a)
+for(let i=1;i<5;i++){
+  let t=10
+  console.log(i)
+}
+console.log(t)
