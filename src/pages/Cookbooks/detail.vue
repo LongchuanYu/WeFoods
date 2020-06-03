@@ -1,9 +1,5 @@
 <template>
-  <div>
-
-
-
-
+  <div v-if="resources">
     <!-- Nav img -->
     <q-img :src="resources.imageUrl" 
       style="object-fit: scale-down;" 
@@ -54,43 +50,30 @@
 
     <!-- sticky function -->
     <q-page-sticky position="bottom-right" :offset="[25,100]">
-      <q-btn dense icon="add"  round color="secondary"  @click="open_dialog()" />
+      <q-btn dense icon="add"  round color="secondary"  @click="open_dialog" />
     </q-page-sticky>
     <q-page-sticky position="bottom-right" :offset="[25,50]">
-      <q-btn dense icon="thumb_up_alt"  round color="secondary" @click="test"/>
+      <q-btn dense icon="thumb_up_alt"  round color="secondary" />
       <q-badge color="orange" class="g-custom-badge" >9999</q-badge>
     </q-page-sticky>
 
     <!-- dailog layer -->
-    <q-dialog v-model="dailog.show" position="bottom">
+    <q-dialog v-model="dailog.show" position="bottom" >
       <q-card class="" style="width:300px">
         <q-list>
           <q-item>
             <q-item-section>
-              <q-item-label caption="">把红烧牛肉安排到哪天</q-item-label>
+              <q-item-label caption="">把{{resources.name}}安排到哪天</q-item-label>
             </q-item-section>
           </q-item>
 
           <q-separator inset />
 
-          <q-item clickable v-ripple>
-            <span>星期一：红烧牛肉红烧牛肉红烧牛肉红烧牛肉红烧牛肉</span>
+          <q-item clickable v-ripple v-for="(item,index) in schedule" :key="index" @click="assign(item.day)">
+            <span>{{$g_transform[item.day-1]}}：{{item.cookbook?item.cookbook.name:''}}</span>
           </q-item>
-          <q-item clickable v-ripple>
-            <span>星期一：红烧牛肉</span>
-          </q-item>
-          <q-item clickable v-ripple>
-            <span>星期一：红烧牛肉</span>
-          </q-item>
-          <q-item clickable v-ripple>
-            <span>星期一：红烧牛肉</span>
-          </q-item>
-          <q-item clickable v-ripple>
-            <span>星期一：红烧牛肉</span>
-          </q-item>
-          <q-item clickable v-ripple>
-            <span>星期一：红烧牛肉</span>
-          </q-item>
+
+
         </q-list>
       </q-card>
 
@@ -116,43 +99,53 @@ export default {
       dailog:{
         show:false 
       },
-      resources:{
-        name:'',
-        description:'',
-        imageUrl:'',
-        myfoods:'',
-        step:'',
-        author:'',
-        timestamp:''
-      }
+      resources:'',
+      schedule:''
 
 
     }
   },
   methods:{
-    open_dialog(){
-      this.dailog.show = true
-    },
-    _getCookbook(id){
-      const path = `/cookbooks/${id}`
-      this.$axios.get(path).then(res=>{
+    assign(day){
+      const path = '/schedules'
+      let payload = {
+        day_name:day,
+        cookbook_id:this.resources.id
+      }
+      this.$axios.put(path,payload).then(res=>{
         console.log(res)
-        let data = res.data;
-        this.resources.name = data.name
-        this.resources.description = data.description
-        this.resources.imageUrl = data.imageUrl
-        this.resources.myfoods = data.myfoods
-        this.resources.step = data.step
-        this.resources.author = data.author
-        this.resources.timestamp = data.timestamp
+        this.dailog.show=false
+
       }).catch(e=>{
         console.log(e)
       })
 
     },
+    open_dialog(){
+      this.dailog.show = true
+      this._getSchedule()
+    },
+    _getCookbook(id){
+      const path = `/cookbooks/${id}`
+      this.$axios.get(path).then(res=>{
+        console.log(res)
+        this.resources = res.data
+      }).catch(e=>{
+        console.log(e)
+      })
+
+    },
+    _getSchedule(){
+      const path = '/schedules'
+      this.$axios.get(path).then(res=>{
+        console.log(res)
+        this.schedule = res.data;
+      }).catch(e=>{
+        console.log(e)
+      })
+    },
     test(){
-      let t = JSON.parse(this.resources.myfoods)
-      console.log(t)
+      console.log('test')
     }
   },
   created(){

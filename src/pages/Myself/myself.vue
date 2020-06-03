@@ -56,6 +56,7 @@ export default {
       this.$toasted.info('您已登出...')
     },
     test(){
+      console.log(this.transform)
       console.log(this.username,this.$store.state.base.username)
     },
     // _pingFlask(){
