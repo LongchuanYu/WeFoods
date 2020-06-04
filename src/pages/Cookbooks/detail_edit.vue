@@ -95,7 +95,8 @@ export default {
       data.append('myfoods',JSON.stringify(this.fieldForm.foodItems))
       data.append('step',this.fieldForm.step)
       this.$axios.post(path,data,header).then(res=>{
-        console.log(res)
+        this.$toasted.success('发布成功.')
+        this.$router.push('/cookbooks')
       }).catch(e=>{
         console.log(e.response)
       })

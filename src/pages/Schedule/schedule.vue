@@ -4,13 +4,18 @@
 
 
   <!-- 星期一 -->
-  <q-card dark bordered class="bg-blue-grey-5 my-card q-mt-sm" v-for="(item,index) in items" :key="index">
-    <q-card-section>
+  <q-card 
+    dark bordered class="bg-blue-grey-5 my-card q-mt-sm" 
+    v-for="(item,index) in items" 
+    :key="index" 
+    
+  >
+    <q-card-section @click="handleGotoDetail(item.cookbook?item.cookbook.id:null)">
       <div class="text-h6">{{$g_transform[item.day-1]}}：{{item.cookbook?item.cookbook.name:''}}</div>
-      <span class="text-subtitle2">牛肉：</span><small>500cal</small>
-      <br>
+      <span class="text-subtitle">{{item.cookbook?item.cookbook.description:'这里什么都没有...'}}</span>
+      <!-- <br>
       <span class="text-subtitle2">土豆：</span><small>200cal</small>
-      <div></div>
+      <div></div> -->
     </q-card-section>
     <q-separator dark inset />
     <q-card-section class="q-pa-xs flex justify-end">
@@ -55,6 +60,17 @@ export default {
     }
   },
   methods:{
+    handleGotoDetail(id){
+      if(!id) {
+        this.$toasted.show('请先安排一道菜');
+        this.$router.push('/cookbooks')
+        return
+      }
+      this.$router.push({
+        name:'Detail',
+        params:{id:id}
+      })
+    },
     _getSchedule(){
       const path = '/schedules'
       this.$axios.get(path).then(res=>{

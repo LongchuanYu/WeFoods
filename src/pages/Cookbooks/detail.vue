@@ -25,7 +25,7 @@
           <span class="text-weight-light" style="font-size:0.5em;">{{$moment(resources.timestamp).format('YYYY-MM-DD')}}</span>
         </div>
         <q-space />
-        <q-btn outline color="primary" label="关注" class=""/>
+        <q-btn outline color="primary" label="关注" class="" @click="test" />
       </div>
       
       <div class="q-mb-sm">{{resources.description}}</div>
@@ -33,7 +33,7 @@
       <div class="q-mb-sm">
         <div class="text-h6 text-weight-bold">食材</div>
         <q-table 
-          :data="food.data"
+          :data="JSON.parse(resources.myfoods)"
           :columns="food.columns"
           row-key="hahaha"
           hide-header
@@ -50,10 +50,10 @@
 
     <!-- sticky function -->
     <q-page-sticky position="bottom-right" :offset="[25,100]">
-      <q-btn dense icon="add"  round color="secondary"  @click="open_dialog" />
+      <q-btn dense icon="add"  round color="secondary"  @click="open_dialog" style="opacity:0.8;"/>
     </q-page-sticky>
     <q-page-sticky position="bottom-right" :offset="[25,50]">
-      <q-btn dense icon="thumb_up_alt"  round color="secondary" />
+      <q-btn dense icon="thumb_up_alt"  round color="secondary" style="opacity:0.8;"/>
       <q-badge color="orange" class="g-custom-badge" >9999</q-badge>
     </q-page-sticky>
 
@@ -88,13 +88,9 @@ export default {
     return {
       food:{
         columns:[
-          {name:'foodname',field: 'foodname',required: true,align:'left'},
-          {name:'foodcal',field: 'foodcal',required: true,align:'left'}
+          {name:'name',field: 'name',required: true,align:'left'},
+          {name:'value',field: 'value',required: true,align:'left'}
         ],
-        data:[
-          {foodname:'米饭',foodcal:'115 cal'},
-          {foodname:'土豆',foodcal:'2000 cal'}
-        ]
       },
       dailog:{
         show:false 
@@ -145,7 +141,7 @@ export default {
       })
     },
     test(){
-      console.log('test')
+      console.log(JSON.parse(this.resources.myfoods))
     }
   },
   created(){
