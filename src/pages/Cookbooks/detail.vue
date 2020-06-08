@@ -1,7 +1,7 @@
 <template>
   <div v-if="resources">
     <!-- Nav img -->
-    <q-img :src="resources.imageUrl" 
+    <q-img :src="$axios.defaults.baseURL+resources.imageUrl" 
       style="object-fit: scale-down;" 
       class="q-mb-md"
     />
