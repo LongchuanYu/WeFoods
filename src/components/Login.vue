@@ -60,7 +60,7 @@ export default {
       this.errorMsg = []
       if(this.commited){return;}
 
-      const path = `/tokens`
+      const path = `api/tokens`
       let payload = {
         username:this.username,
         password:this.password

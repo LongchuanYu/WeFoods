@@ -77,7 +77,7 @@ export default {
       this.errorMsg = []
       if(this.commited){return;}
 
-      const path = `users`
+      const path = `api/users`
       let self = this
       let payload = {
         username:this.username,

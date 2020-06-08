@@ -3,7 +3,8 @@ import axios from 'axios'
 import Router from '../router'
 import Store from '../store'
 
-axios.defaults.baseURL = 'http://localhost:5000/api/'
+// axios.defaults.baseURL = 'http://localhost:5000/'
+axios.defaults.baseURL = 'http://localhost:5000/'
 
 axios.defaults.timeout = 5000
 

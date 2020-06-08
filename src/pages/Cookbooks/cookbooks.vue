@@ -6,7 +6,7 @@
       <q-list>
         <q-item clickable v-ripple v-for="(item,index) in items" :key="index" @click="handleClick(item.id)">
           <q-item-section thumbnail class="q-pl-sm">
-            <img :src="item.imageUrl" alt="" style="width:150px;height:150px;object-fit: cover;">
+            <img :src="$axios.defaults.baseURL+item.imageUrl" alt="" style="width:150px;height:150px;object-fit: cover;">
           </q-item-section>
           <!-- Cookbook Name -->
           <q-item-section top>
@@ -67,7 +67,7 @@ export default {
     _getCookbooks(refresh=null){
       let page = this.shareData.page
       let per_page = this.shareData.per_page
-      const path = `/cookbooks/?page=${page}&per_page=${per_page}`
+      const path = `api/cookbooks/?page=${page}&per_page=${per_page}`
       this.$axios.get(path).then(res=>{
         console.log(res)
         this.items = res.data.items
@@ -88,7 +88,7 @@ export default {
       }
       let page = this._meta.page+1
       let per_page = this.shareData.per_page
-      const path = `/cookbooks/?page=${page}&per_page=${per_page}`
+      const path = `api/cookbooks/?page=${page}&per_page=${per_page}`
       this.$axios.get(path).then(res=>{
         this._meta = res.data._meta
         this.items = this.items.concat(res.data.items)

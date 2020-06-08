@@ -103,7 +103,7 @@ export default {
   },
   methods:{
     assign(day){
-      const path = '/schedules'
+      const path = 'api/schedules'
       let payload = {
         day_name:day,
         cookbook_id:this.resources.id
@@ -122,7 +122,7 @@ export default {
       this._getSchedule()
     },
     _getCookbook(id){
-      const path = `/cookbooks/${id}`
+      const path = `api/cookbooks/${id}`
       this.$axios.get(path).then(res=>{
         console.log(res)
         this.resources = res.data
@@ -132,7 +132,7 @@ export default {
 
     },
     _getSchedule(){
-      const path = '/schedules'
+      const path = 'api/schedules'
       this.$axios.get(path).then(res=>{
         console.log(res)
         this.schedule = res.data;

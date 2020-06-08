@@ -88,7 +88,7 @@ export default {
           'Content-Type':'multipart/form-data'
         }
       }
-      const path = `/cookbooks`
+      const path = `api/cookbooks`
       data.append('imgfile',this.imgfile);
       data.append('name',this.fieldForm.title)
       data.append('description',this.fieldForm.description)
@@ -103,7 +103,7 @@ export default {
 
     },
     _ping(){
-      const path='/ping'
+      const path='api/ping'
       this.$axios.get(path).then(res=>{}).catch(e=>{})
     }
   },

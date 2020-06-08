@@ -72,7 +72,7 @@ export default {
       })
     },
     _getSchedule(){
-      const path = '/schedules'
+      const path = 'api/schedules'
       this.$axios.get(path).then(res=>{
         console.log(res)
         this.items = res.data;
@@ -84,7 +84,7 @@ export default {
       console.log(this.transform)
       return;
 
-      const path = '/schedules'
+      const path = 'api/schedules'
       this.$axios.get(path).then(res=>{
         console.log(res)
       }).catch(e=>{
@@ -93,7 +93,7 @@ export default {
     },
     putit(){
       console.log('123')
-      const path = '/schedules'
+      const path = 'api/schedules'
       let payload = {
         day_name:'1',
         cookbook_id:'2'
