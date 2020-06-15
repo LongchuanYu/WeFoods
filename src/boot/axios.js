@@ -4,7 +4,7 @@ import Router from '../router'
 import Store from '../store'
 
 // axios.defaults.baseURL = 'http://localhost:5000/'
-axios.defaults.baseURL = 'http://localhost:5000/'
+axios.defaults.baseURL = 'http://49.234.18.49:9000/'
 
 axios.defaults.timeout = 5000
 
